@@ -1,0 +1,8 @@
+# Code voor vergelijken van daadwerkelijke versnelling samen met geregistreerde versnelling. 
+# openen van data file
+import csv
+positities_1_Team_A2.csv = open('positities_1_Team_A2.csv')
+split = lambda row: row[0].split('')
+data = list(csv.reader(positities_1_Team_A2.csv))
+data = list(map(split,data))
+print(data[0])
