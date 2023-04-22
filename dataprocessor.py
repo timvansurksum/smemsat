@@ -70,5 +70,4 @@ plt.xlabel('tijd[s]')
 plt.ylabel('Versnelling[m/sˆ2]')
 plt.title("Versnellingsprofielen van twee datasets")
 plt.legend()
-
-
+plt.show()
