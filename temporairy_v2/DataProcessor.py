@@ -21,7 +21,7 @@ class DataProcessor():
         return v, t[:-1]
     
     @classmethod
-    def Plot_Data(self, t, a_1, a_2):
+    def plot_Data(self, t, a_1, a_2):
         # het maken van een array voor beide versnellingsprofielen. de t staat zelf al wel in een array dus die hoefde niet veranderd te worden. 
         a_array= np.array(a_1)
         a_twee_array = np.array(a_2)

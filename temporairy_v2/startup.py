@@ -25,4 +25,4 @@ a_1, t_1 = DataProcessor.differentiate(v_1, t_1)
 a_2, t_2 = DataProcessor.differentiate(v_2, t_2)
 
 #deze functie plot de data van beide bronnen
-DataProcessor.Plot_Data(t_1, a_1,a_2)
+DataProcessor.plot_Data(t_1, a_1,a_2)
