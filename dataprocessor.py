@@ -61,7 +61,8 @@ for i in range(0,len(t)-1):
 
 
 # Deze lijnen zijn bijna iedentiek aan degene hierboven, behalve wordt v (snelheid) gedifferentieerd om a (versnelling) te krijgen. 
-a = [] 
+a = []
+
 for i in range(0,len(t)-2):
     dv= v[i+1]-v[i]
     dt= t[i+1]-t[i]
