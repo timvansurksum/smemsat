@@ -1,0 +1,3 @@
+veerconstante (k): 30 N/m
+massa (m): 1.3837 mg
+gamma: 0.032215 kg/s
