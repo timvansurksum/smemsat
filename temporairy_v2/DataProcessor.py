@@ -155,7 +155,10 @@ class DataProcessor():
         graph_2_title:str
         ):
         """
-        This function 
+        plot_Data
+        ---------
+        plot 2 grafieken op basis van gegeven data
+        
         Parameters
         ----------
             - t: list, 
@@ -171,6 +174,42 @@ class DataProcessor():
         dataset_2_array = np.array(dataset_2)
         plt.plot(t,dataset_1_array, label=  graph_1_title)
         plt.plot(t,dataset_2_array, label= graph_2_title)
+        plt.xlabel(x_axis_title)
+        plt.ylabel(y_axis_title)
+        plt.title(plot_title)
+        plt.legend()
+        plt.show()
+        
+    def plot_Data_scalable(
+        t: list, 
+        plot_title: str, 
+        x_axis_title: str, 
+        y_axis_title: str, 
+        datasets: list,
+        max_data_index: int 
+        ):
+        """
+        plot_Data_scalable
+        ---------
+        plot n grafieken op basis van gegeven data
+        
+        Parameters
+        -----------
+            - t: list,
+                x data van grafiek
+            - plot_title: str, 
+                naam van plot
+            - x_axis_title: str, 
+                x as titel
+            - y_axis_title: str, 
+                y as titel
+            - datasets: list,
+                alle datasets met grafiek titels
+            - max_data_index: int 
+                maximale index van data
+        """
+        for dataset in datasets:
+            plt.plot(t[:max_data_index],dataset["x_data"][0][:max_data_index], label=  dataset["title"])
         plt.xlabel(x_axis_title)
         plt.ylabel(y_axis_title)
         plt.title(plot_title)

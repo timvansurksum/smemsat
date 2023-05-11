@@ -111,3 +111,32 @@ DataProcessor.plot_Data(
     response_acceleration_data_1[:max_data_index], "response_massa_dataset_1", 
     response_acceleration_data_2[:max_data_index], "response_massa_dataset_2"
     )
+
+
+dempingsfactoren =  [ 0.01, 0.05, 0.15, 0.1, 0.5, 1]
+datasets = []
+for dempingsfactor in dempingsfactoren:
+
+        # berekend voor beide datasets de response in de accelerometer met de gegeven parameters
+        response_acceleration_data_1 = DataProcessor.get_full_response_data(
+                acceleratie_frame = acceleratie_data_frame_1, 
+                timestamps_frame = timestamps_data_1, 
+                response_bij_t_0 = response_bij_t_0, 
+                response_bij_t_0_plus_dt = response_bij_t_0_plus_dt, 
+                dempingsfactor = dempingsfactor, 
+                massa = massa, 
+                veerconstante = veerconstante
+                ) 
+        datasets.append({
+                "title": f"response_massa_dataset_1_dempingsfactor: {dempingsfactor}",
+                "x_data": [response_acceleration_data_1]
+        })
+DataProcessor.plot_Data_scalable(
+    timestamps_data_1, 
+    f"response profielen van 2 datasets",
+    "tijd[s]",
+    "afstand[m]",
+    datasets,
+    max_data_index
+    )
+
