@@ -140,3 +140,30 @@ DataProcessor.plot_Data_scalable(
     max_data_index
     )
 
+veerconstanten =  [ 1, 5, 10, 20, 30, 50, 100, 150]
+dempingsfactor = 0.034363 
+datasets = []
+for veerconstante in veerconstanten:
+
+        # berekend voor beide datasets de response in de accelerometer met de gegeven parameters
+        response_acceleration_data_1 = DataProcessor.get_full_response_data(
+                acceleratie_frame = acceleratie_data_frame_1, 
+                timestamps_frame = timestamps_data_1, 
+                response_bij_t_0 = response_bij_t_0, 
+                response_bij_t_0_plus_dt = response_bij_t_0_plus_dt, 
+                dempingsfactor = dempingsfactor, 
+                massa = massa, 
+                veerconstante = veerconstante
+                ) 
+        datasets.append({
+                "title": f"response_massa_dataset_1_veerconstante: {veerconstante}",
+                "x_data": [response_acceleration_data_1]
+        })
+DataProcessor.plot_Data_scalable(
+    timestamps_data_1, 
+    f"response profielen van 2 datasets",
+    "tijd[s]",
+    "afstand[m]",
+    datasets,
+    max_data_index
+    )

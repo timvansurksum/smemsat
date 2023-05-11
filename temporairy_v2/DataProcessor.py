@@ -145,7 +145,7 @@ class DataProcessor():
         return v, t[:-1]
     
     def plot_Data(
-        t: list, 
+        time_data: list, 
         plot_title: str, 
         x_axis_title: str, 
         y_axis_title: str, 
@@ -161,19 +161,28 @@ class DataProcessor():
         
         Parameters
         ----------
-            - t: list, 
+            - time_data: list, 
+                x data van grafiek
             - plot_title: str, 
+                titel van de plot
             - x_axis_title: str, 
+                x as titel
             - y_axis_title: str, 
+                y as titel
             - dataset_1: list, 
+                y data van eerste dataset
             - graph_1_title: str, 
+                titel van eerste dataset
             - dataset_2: list, 
+                y data van tweede dataset
             - graph_2_title:str
+                titel van tweede dataset
+            
         """
         dataset_1_array= np.array(dataset_1)
         dataset_2_array = np.array(dataset_2)
-        plt.plot(t,dataset_1_array, label=  graph_1_title)
-        plt.plot(t,dataset_2_array, label= graph_2_title)
+        plt.plot(time_data,dataset_1_array, label=  graph_1_title)
+        plt.plot(time_data,dataset_2_array, label= graph_2_title)
         plt.xlabel(x_axis_title)
         plt.ylabel(y_axis_title)
         plt.title(plot_title)
