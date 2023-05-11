@@ -144,20 +144,22 @@ class DataProcessor():
             v.append(afgeleide)
         return v, t[:-1]
     
-    def plot_Data(
+    def plot_2_graphs_with_2_different_scales(
         time_data: list, 
         plot_title: str, 
         x_axis_title: str, 
-        y_axis_title: str, 
         dataset_1: list, 
         graph_1_title: str, 
+        graph_1_y_label: str,
         dataset_2: list, 
-        graph_2_title:str
+        graph_2_title:str,
+        graph_2_y_label: str,
+        max_data_index: int 
         ):
         """
-        plot_Data
+        plot_2_graphs_with_2_different_scales
         ---------
-        plot 2 grafieken op basis van gegeven data
+        plot 2 grafieken op basis van gegeven x data
         
         Parameters
         ----------
@@ -167,26 +169,33 @@ class DataProcessor():
                 titel van de plot
             - x_axis_title: str, 
                 x as titel
-            - y_axis_title: str, 
-                y as titel
             - dataset_1: list, 
                 y data van eerste dataset
             - graph_1_title: str, 
                 titel van eerste dataset
+            - graph_1_y_label: str,
+                y label of first graph
             - dataset_2: list, 
                 y data van tweede dataset
             - graph_2_title:str
                 titel van tweede dataset
-            
+            - graph_1_y_label: str,
+                y label of first graph
+            - max_data_index: int 
+                maximale index van data
         """
         dataset_1_array= np.array(dataset_1)
         dataset_2_array = np.array(dataset_2)
-        plt.plot(time_data,dataset_1_array, label=  graph_1_title)
-        plt.plot(time_data,dataset_2_array, label= graph_2_title)
-        plt.xlabel(x_axis_title)
-        plt.ylabel(y_axis_title)
-        plt.title(plot_title)
-        plt.legend()
+        fig, axis_1 = plt.subplots()
+        axis_1.plot(time_data[:max_data_index], dataset_1_array[:max_data_index], label =  graph_1_title, color = "green")
+        axis_2 = axis_1.twinx()
+        axis_2.plot(time_data[:max_data_index], dataset_2_array[:max_data_index], label = graph_2_title, color = "red")
+        axis_1.set_xlabel(x_axis_title)
+        axis_1.set_ylabel(graph_1_y_label)
+        axis_2.set_ylabel(graph_2_y_label)
+        axis_1.set_title(plot_title)
+        axis_1.legend(loc=2)
+        axis_2.legend(loc=0)
         plt.show()
         
     def plot_Data_scalable(
@@ -218,7 +227,7 @@ class DataProcessor():
                 maximale index van data
         """
         for dataset in datasets:
-            plt.plot(t[:max_data_index],dataset["x_data"][0][:max_data_index], label=  dataset["title"])
+            plt.plot(t[:max_data_index],dataset["x_data"][:max_data_index], label=  dataset["title"])
         plt.xlabel(x_axis_title)
         plt.ylabel(y_axis_title)
         plt.title(plot_title)

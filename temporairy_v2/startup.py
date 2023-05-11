@@ -60,27 +60,7 @@ response_acceleration_data_2_met_ideale_accelerometer = DataProcessor.get_full_r
 
 max_data_index = len(timestamps_data_1)
 
-#deze functie plot de acceleratie data van het frame voor beide databestanden
-DataProcessor.plot_Data(
-    timestamps_data_1, 
-    "Versnellingsprofielen van 2 datasets",
-    "tijd[s]",
-    "versnelling[m*s^-2]",
-    acceleratie_data_frame_1[:max_data_index], "acceleration_frame_dataset_1", 
-    acceleratie_data_frame_2[:max_data_index], "acceleration_frame_dataset_2", 
-    )
-
-#deze functie plot de response voor beide acceleratie profielen binnen een ideale accelerometer
-DataProcessor.plot_Data(
-    timestamps_data_1, 
-    "ideale response van 2 datasets",
-    "tijd[s]",
-    "versnelling[m*s^-2]",
-    response_acceleration_data_1_met_ideale_accelerometer[:max_data_index], "response_massa_dataset_1", 
-    response_acceleration_data_2_met_ideale_accelerometer[:max_data_index], "response_massa_dataset_2", 
-    )
-
-# gegeven veerconstantes
+# gegeven veerconstante
 veerconstante = 32
 
 # berekend voor beide datasets de response in de accelerometer met de gegeven parameters
@@ -102,17 +82,70 @@ response_acceleration_data_2 = DataProcessor.get_full_response_data(
         massa = massa, 
         veerconstante = veerconstante
         ) 
+datasets = [
+                {
+                        "title": f"response_massa_dataset_1",
+                        "x_data": response_acceleration_data_1
+                },
+                {
+                        "title": f"response_massa_dataset_2",
+                        "x_data": response_acceleration_data_2
+                },
+]
+DataProcessor.plot_2_graphs_with_2_different_scales(
+        time_data = timestamps_data_1, 
+        plot_title = "frame acceleratie vs response dataset 1", 
+        x_axis_title = "T[s]", 
+        dataset_1 = response_acceleration_data_1, 
+        graph_1_title = "response_acceleration_data_1", 
+        graph_1_y_label = "x[m]",
+        dataset_2 = acceleratie_data_frame_1,
+        graph_2_title = "acceleratie_data_frame_1",
+        graph_2_y_label = "a[m*s^-2]",
+        max_data_index = max_data_index
+        )
 
-DataProcessor.plot_Data(
+DataProcessor.plot_2_graphs_with_2_different_scales(
+        time_data = timestamps_data_1, 
+        plot_title = "frame acceleratie vs response dataset 2", 
+        x_axis_title = "T[s]", 
+        dataset_1 = response_acceleration_data_2, 
+        graph_1_title = "response_acceleration_data_2", 
+        graph_1_y_label = "x[m]",
+        dataset_2 = acceleratie_data_frame_2,
+        graph_2_title = "acceleratie_data_frame_2",
+        graph_2_y_label = "a[m*s^-2]",
+        max_data_index = max_data_index
+        )
+
+DataProcessor.plot_Data_scalable(
     timestamps_data_1, 
     "response profielen van 2 datasets",
     "tijd[s]",
     "afstand[m]",
-    response_acceleration_data_1[:max_data_index], "response_massa_dataset_1", 
-    response_acceleration_data_2[:max_data_index], "response_massa_dataset_2"
+    datasets,
+    max_data_index
     )
 
+datasets = [
+                {
+                        "title": f"response_acceleration_data_1_met_ideale_accelerometer",
+                        "x_data": response_acceleration_data_1_met_ideale_accelerometer
+                },
+                {
+                        "title": f"response_acceleration_data_2_met_ideale_accelerometer",
+                        "x_data": response_acceleration_data_2_met_ideale_accelerometer
+                }
+        ]
 
+DataProcessor.plot_Data_scalable(
+    timestamps_data_1, 
+    "response profielen van 2 datasets",
+    "tijd[s]",
+    "afstand[m]",
+    datasets,
+    max_data_index
+    )
 dempingsfactoren =  [ 0.01, 0.05, 0.15, 0.1, 0.5, 1]
 datasets = []
 for dempingsfactor in dempingsfactoren:
@@ -129,7 +162,7 @@ for dempingsfactor in dempingsfactoren:
                 ) 
         datasets.append({
                 "title": f"response_massa_dataset_1_dempingsfactor: {dempingsfactor}",
-                "x_data": [response_acceleration_data_1]
+                "x_data": response_acceleration_data_1
         })
 DataProcessor.plot_Data_scalable(
     timestamps_data_1, 
@@ -157,7 +190,7 @@ for veerconstante in veerconstanten:
                 ) 
         datasets.append({
                 "title": f"response_massa_dataset_1_veerconstante: {veerconstante}",
-                "x_data": [response_acceleration_data_1]
+                "x_data": response_acceleration_data_1
         })
 DataProcessor.plot_Data_scalable(
     timestamps_data_1, 
