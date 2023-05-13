@@ -187,9 +187,19 @@ class DataProcessor():
         dataset_1_array= np.array(dataset_1)
         dataset_2_array = np.array(dataset_2)
         fig, axis_1 = plt.subplots()
-        axis_1.plot(time_data[:max_data_index], dataset_1_array[:max_data_index], label =  graph_1_title, color = "green")
+        axis_1.plot(
+            time_data[:max_data_index], 
+            dataset_1_array[:max_data_index],
+            label =  graph_1_title, 
+            color = "green"
+            )
         axis_2 = axis_1.twinx()
-        axis_2.plot(time_data[:max_data_index], dataset_2_array[:max_data_index], label = graph_2_title, color = "red")
+        axis_2.plot(
+            time_data[:max_data_index], 
+            dataset_2_array[:max_data_index], 
+            label = graph_2_title, 
+            color = "red"
+            )
         axis_1.set_xlabel(x_axis_title)
         axis_1.set_ylabel(graph_1_y_label)
         axis_2.set_ylabel(graph_2_y_label)
