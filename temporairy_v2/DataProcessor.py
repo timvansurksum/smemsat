@@ -1,5 +1,3 @@
-# hier worden de gebruikte libraries geimporteerd. 
-import csv
 import matplotlib.pyplot as plt
 import numpy as np
 
