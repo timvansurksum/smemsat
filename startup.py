@@ -1,4 +1,4 @@
-from DataProcessor import DataProcessor
+from dataprocessor import DataProcessor
 
 # de file paden van de datafiles
 datafile_frame_1_pad = "posities_1_Team_A2.txt"
