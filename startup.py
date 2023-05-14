@@ -17,7 +17,7 @@ positie_data_frame_2 = data_frame_2[:, 1]
 
 # deze functie leid de plaats informatie af en geeft snelheid
 snelheid_data_frame_1, timestamps_data_1 = DataProcessor.differentiatie(
-    positie_data_frame_2, timestamps_data_2)
+    positie_data_frame_1, timestamps_data_1)
 
 
 snelheid_data_frame_2, timestamps_data_2 = DataProcessor.differentiatie(
@@ -43,50 +43,49 @@ dempingsfactor = 0.034363
 veerconstante = 32
 dt = 6*10**-7
 
+# berekend voor de dataset de response in de accelerometer met de gegeven parameters
+
+response_acceleration_data_1 = DataProcessor.get_full_response_data(
+    acceleratie_frame=acceleratie_data_frame_1,
+    timestamps_frame=timestamps_data_1,
+    response_bij_t_0=response_bij_t_0,
+    response_bij_t_0_plus_dt=response_bij_t_0_plus_dt,
+    dempingsfactor=dempingsfactor,
+    massa=massa,
+    veerconstante=veerconstante
+)
+
 # voor een ideale accelerometer dt is hier niet exact
 # sinds het wel veranderd bij verschillende tijdsmomenten al is die verandering zo goed als insignificant
 veerconstante = dempingsfactor/dt
 
+max_data_index = len(timestamps_data_1)
+
+veerconstante = dempingsfactor/dt
 # berekend voor de dataset de response in een ideale accelerometer
-response_acceleration_data_2_met_ideale_accelerometer = DataProcessor.get_full_response_data(
-    acceleratie_frame=acceleratie_data_frame_2,
-    timestamps_frame=timestamps_data_2,
+response_acceleration_data_1_met_ideale_accelerometer = DataProcessor.get_full_response_data(
+    acceleratie_frame=acceleratie_data_frame_1,
+    timestamps_frame=timestamps_data_1,
     response_bij_t_0=response_bij_t_0,
     response_bij_t_0_plus_dt=response_bij_t_0_plus_dt,
     dempingsfactor=dempingsfactor,
     massa=massa,
     veerconstante=veerconstante
 )
-
-max_data_index = len(timestamps_data_2)
-
-
-# berekend voor de dataset de response in de accelerometer met de gegeven parameters
-
-response_acceleration_data_2 = DataProcessor.get_full_response_data(
-    acceleratie_frame=acceleratie_data_frame_2,
-    timestamps_frame=timestamps_data_2,
-    response_bij_t_0=response_bij_t_0,
-    response_bij_t_0_plus_dt=response_bij_t_0_plus_dt,
-    dempingsfactor=dempingsfactor,
-    massa=massa,
-    veerconstante=veerconstante
-)
-
 datasets = [
     {
-        "title": f"response_massa_dataset_1",
-        "x_data": response_acceleration_data_2
+        "title": f"response_acceleration_data_1_met_ideale_accelerometer",
+        "x_data": response_acceleration_data_1_met_ideale_accelerometer
     },
 ]
 DataProcessor.plot_2_graphs_with_2_different_scales(
-    time_data=timestamps_data_2,
+    time_data=timestamps_data_1,
     plot_title="frame acceleratie vs response dataset 1 met ideale accelerometer",
     x_axis_title="T[s]",
-    dataset_1=response_acceleration_data_2_met_ideale_accelerometer,
+    dataset_1=response_acceleration_data_1,
     graph_1_title="response_acceleration_data_1",
     graph_1_y_label="x[m]",
-    dataset_2=acceleratie_data_frame_2,
+    dataset_2=acceleratie_data_frame_1,
     graph_2_title="acceleratie_data_frame_1",
     graph_2_y_label="a[m*s^-2]",
     max_data_index=max_data_index
