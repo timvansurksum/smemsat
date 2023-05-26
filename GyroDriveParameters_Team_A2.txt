@@ -1,0 +1,4 @@
+veerconstante (k): 0.3820 N/m
+massa (m): 4.3 microgram
+gamma: 8.1053e-07 kg/s
+Fmax: 60 nN
