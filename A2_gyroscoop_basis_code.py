@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon May 22 12:08:27 2023
-
-@author: kayleepont
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -72,7 +64,7 @@ left_frequency = frequency_half_max[0]
 right_frequency = frequency_half_max[-1]
 
 # Berekenen van de FWHM.
-full_width_half_max = right_frequency- left_frequency
+full_width_half_max = right_frequency - left_frequency
 
 # Plot van de tuning-kromme en wat labels, kleur veranderingen. 
 plt.plot(frequency_values, amplitude_values, label='Tuning-kromme', color='blue')
@@ -87,5 +79,60 @@ plt.annotate(f'FWHM = {full_width_half_max:.4f} Hz', xy=(0.95, 0.95), xycoords='
              bbox=dict(facecolor=annotation_color, edgecolor='green', boxstyle='round,pad=0.4'))
 plt.show()
 
+gamma = gamma * 1.2
+for i, frequency in enumerate(frequency_values):
+    omega_new = (2 * np.pi) * frequency
+    x_value_new =  F_max / np.sqrt((k - m * omega_new ** 2) ** 2 + (gamma * omega_new) ** 2)
+    amplitude_values[i] = x_value_new
 
+# de frequentiewaarden van amplitudes die gelijk zijn aan of groter dan de helft van de maximale amplitude. 
+half_max_amplitude = np.max(amplitude_values) / 2.0
+indices = np.where(amplitude_values >= half_max_amplitude)[0]
+frequency_half_max = frequency_values[indices]
+left_frequency = frequency_half_max[0]
+right_frequency = frequency_half_max[-1]
 
+# Berekenen van de FWHM.
+full_width_half_max = right_frequency - left_frequency
+
+# Plot van de tuning-kromme en wat labels, kleur veranderingen. 
+plt.plot(frequency_values, amplitude_values, label='Tuning-kromme', color='blue')
+plt.axhline( y=half_max_amplitude, color='r', linestyle='--', label='Half maximum')
+plt.fill_between(frequency_values, 0, amplitude_values, where=(frequency_values >= left_frequency) & (frequency_values <= right_frequency), facecolor='green', alpha=0.3)
+plt.xlabel('Frequentie [Hertz]')
+plt.ylabel('Trillingsamplitude [meter]')
+plt.title('Tuning-kromme van de oscillator')
+plt.xlim(1350, 1650)  
+annotation_color = (0.5, 0.8, 0.5)  
+plt.annotate(f'FWHM = {full_width_half_max:.4f} Hz', xy=(0.95, 0.95), xycoords='axes fraction', fontsize=10, ha='right', va='top',
+             bbox=dict(facecolor=annotation_color, edgecolor='green', boxstyle='round,pad=0.4'))
+plt.show()
+
+gamma = gamma / 1.2 * 0.8
+for i, frequency in enumerate(frequency_values):
+    omega_new = (2 * np.pi) * frequency
+    x_value_new =  F_max / np.sqrt((k - m * omega_new ** 2) ** 2 + (gamma * omega_new) ** 2)
+    amplitude_values[i] = x_value_new
+
+# de frequentiewaarden van amplitudes die gelijk zijn aan of groter dan de helft van de maximale amplitude. 
+half_max_amplitude = np.max(amplitude_values) / 2.0
+indices = np.where(amplitude_values >= half_max_amplitude)[0]
+frequency_half_max = frequency_values[indices]
+left_frequency = frequency_half_max[0]
+right_frequency = frequency_half_max[-1]
+
+# Berekenen van de FWHM.
+full_width_half_max = right_frequency - left_frequency
+
+# Plot van de tuning-kromme en wat labels, kleur veranderingen. 
+plt.plot(frequency_values, amplitude_values, label='Tuning-kromme', color='blue')
+plt.axhline( y=half_max_amplitude, color='r', linestyle='--', label='Half maximum')
+plt.fill_between(frequency_values, 0, amplitude_values, where=(frequency_values >= left_frequency) & (frequency_values <= right_frequency), facecolor='green', alpha=0.3)
+plt.xlabel('Frequentie [Hertz]')
+plt.ylabel('Trillingsamplitude [meter]')
+plt.title('Tuning-kromme van de oscillator')
+plt.xlim(1350, 1650)  
+annotation_color = (0.5, 0.8, 0.5)  
+plt.annotate(f'FWHM = {full_width_half_max:.4f} Hz', xy=(0.95, 0.95), xycoords='axes fraction', fontsize=10, ha='right', va='top',
+             bbox=dict(facecolor=annotation_color, edgecolor='green', boxstyle='round,pad=0.4'))
+plt.show()
