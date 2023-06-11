@@ -49,11 +49,11 @@ def differentiaal_sense (gamma, veerconstante):
     amplitude_x_sense   = np.max(x_values)
     
     # respons tijd berekenen door middel van maximale amplitude en t waardes. 
-    elementen       = np.where(x_values>= amplitude_x_sense - amplitude_x_sense/math.e)
+    elementen       = np.where(x_values >= amplitude_x_sense - amplitude_x_sense/math.e)
     element         = elementen[0][0]
     t0              = t_values[20000] # dit geeft aan waar hij moet beginnen. 
     t1              = t_values[element]
-    respons_tijd    = t1 - t0 
+    respons_tijd    = t1 - t0
     
     # statische uitwijking definieren.
     statische_uitwijking = f_coriolis_geschaald / veerconstante
@@ -61,11 +61,11 @@ def differentiaal_sense (gamma, veerconstante):
     # Q-factor berekenen. 
     Q_factor = (amplitude_x_sense / statische_uitwijking)
     
-    return(amplitude_x_sense, Q_factor, respons_tijd, x_values, t_values, omega_values)
+    return (amplitude_x_sense, Q_factor, respons_tijd, x_values, t_values, omega_values)
 
 # oproepen van waardes uit de functie. 
 amplitude_x_sense, Q_factor, respons_tijd, x_values, t_values, omega_values = differentiaal_sense(gamma, veerconstante_fun(gamma))
-
+print(f"response tijd {round(respons_tijd,4)}")
 # bepalen van de uiterste waardes voor de gamma variatie. 
 gamma_half   = gamma/2
 gamma_twee   = gamma * 2
@@ -87,7 +87,7 @@ Q_factor_values         = np.zeros_like(gamma_values)
 respons_tijd_values     = np.zeros_like(gamma_values)
 
 # for loop voor het berekenen van de benodigde; amplitude, Q factor en respons tijd. 
-for i in range(0, Nstap_Q):
+for i in range(0, Nstap_Q):     
     amplitude_values[i], Q_factor_values[i], respons_tijd_values[i] = differentiaal_sense(gamma_values[i], veerconstante_fun(gamma_values[i]))[0:3]
 
 # plotjes van benodigde grafieken. 
@@ -116,9 +116,11 @@ plt.xlabel('Q factor')
 plt.ylabel('Uitwijking [meter]')
 
 plt.figure(5)
-plt.plot( Q_factor_values, respons_tijd_values)
+plt.plot( gamma_values, respons_tijd_values)
 plt.title('Respons tijd over Q factor')
 plt.xlabel('Q factor')
 plt.ylabel('Respons tijd [sec]')
 
-print(respons_tijd)
+print(f"de veerconstante is {round(veerconstante_fun(gamma), 2)}")
+print(f"de amplitude is {round(amplitude_x_sense, 14)}")
+plt.show()
