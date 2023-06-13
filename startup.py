@@ -90,6 +90,7 @@ def compute_coriolis_force (MASS_OF_DRIVE, ANGULAR_VELOCITY, v_values):
 F_coriolis  = compute_coriolis_force(MASS_OF_DRIVE, ANGULAR_VELOCITY, v_values)
 
 plt.plot(t_values,F_coriolis)
+plt.show()
 
 # Stap 4
 MASS_OF_SENSE           = 4.92e-9 #kilogram
