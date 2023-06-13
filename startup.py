@@ -20,7 +20,7 @@ ANGULAR_VELOCITY = np.sqrt(SPRING_RATE/MASS_OF_DRIVE-(DAMPING_COEFICIENT/(2*MASS
 v = lambda t: V_0 * DRIVE_VOLTAGE * np.cos(ANGULAR_VELOCITY * t)
 c_derivative = lambda t: CAPICITOR_PLATE_THICKNESS/DISTANCE_BETWEEN_PLATES_DRIVE*PERMMITIVITY_OF_FREE_SPACE
 
-F_electric = lambda t: 1/2 * v(t)**2*c_derivative(t)
+F_electric = lambda t: 1/2 * v(t)**2*c_derivative(t) * CAPACITOR_PLATE_COUNT_DRIVE
 
 print(F_electric(5))
 # Stap 3
