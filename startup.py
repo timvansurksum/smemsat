@@ -74,20 +74,20 @@ def compute_velocity (x_values,t_values):
 v_values = compute_velocity(x_values, t_values)
 
 # gekregen parameters voor stap 3.
-ANGULAR_VELOCITY             = 10/60 #rad/sec
+ANGULAR_VELOCITY_SENSE = 10/60 #rad/sec
 
 
 # F coriolis kracht berekenen. 
-def compute_coriolis_force (MASS_OF_DRIVE, ANGULAR_VELOCITY, v_values):
+def compute_coriolis_force (MASS_OF_DRIVE, ANGULAR_VELOCITY_SENSE, v_values):
     F_coriolis  = []
     for time_index in range(0,len(t_values)-1):
-        force = - 2 * MASS_OF_DRIVE * ANGULAR_VELOCITY * v_values[time_index]
+        force = - 2 * MASS_OF_DRIVE * ANGULAR_VELOCITY_SENSE * v_values[time_index]
         F_coriolis.append(force)
     F_coriolis.append(F_coriolis[-1])
     print(force)
     return(F_coriolis)
 
-F_coriolis  = compute_coriolis_force(MASS_OF_DRIVE, ANGULAR_VELOCITY, v_values)
+F_coriolis  = compute_coriolis_force(MASS_OF_DRIVE, ANGULAR_VELOCITY_SENSE, v_values)
 
 plt.plot(t_values,F_coriolis)
 plt.show()
