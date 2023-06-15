@@ -132,6 +132,10 @@ class DataProcessor():
         - x: list
             functie waardes waar over wordt gediferentieerd
         - t: list
+        Returns
+        -------
+        - derivative values: v
+        - t values: t
             
         """
         v = [] 
