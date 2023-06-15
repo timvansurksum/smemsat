@@ -31,7 +31,7 @@ teind    = 0.5
 t_values = np.linspace(0, teind, Nstap)
 F_electric_values = list(map(F_electric, t_values))
 plt.figure(1)
-plt.plot(t_values, F_electric_values)
+plt.plot(t_values, F_electric_values, color='pink')
 plt.title('F_electric')
 
 # berekenen van transmissiecoefficient n1.
@@ -68,7 +68,7 @@ def process_data_drive (DAMPING_COEFICIENT_DRIVE, SPRING_RATE_DRIVE, MASS_OF_DRI
 amplitude_x_drive, x_values_drive, t_values = process_data_drive(DAMPING_COEFICIENT_DRIVE, SPRING_RATE_DRIVE, MASS_OF_DRIVE, F_electric_values)
 
 plt.figure(2)
-plt.plot(t_values, x_values_drive)
+plt.plot(t_values, x_values_drive, color='pink')
 plt.title('x_values_drive')
 
 
@@ -107,7 +107,7 @@ def compute_coriolis_force (MASS_OF_DRIVE, ANGULAR_VELOCITY, v_values_drive):
 F_coriolis  = compute_coriolis_force(MASS_OF_DRIVE, ANGULAR_VELOCITY, v_values_drive)
 
 plt.figure(3)
-plt.plot(t_values, F_coriolis)
+plt.plot(t_values, F_coriolis, color='pink')
 plt.title('F_coriolis')
 
 
@@ -146,7 +146,7 @@ def process_data_sense (DAMPING_COEFICIENT_SENSE, SPRING_RATE_SENSE, MASS_OF_SEN
 
 amplitude_x_sense, x_values_sense, t_values = process_data_sense(DAMPING_COEFICIENT_SENSE, SPRING_RATE_SENSE, MASS_OF_SENSE, F_coriolis)
 plt.figure(4)
-plt.plot(t_values, x_values_sense)
+plt.plot(t_values, x_values_sense, color='pink')
 plt.title('x_values_sense')
 
 
@@ -164,7 +164,7 @@ t_indexes = range(0, len(t_values))
 i_sense_values = list(map(i_sense, t_indexes))
 
 plt.figure(5)
-plt.plot(t_values, i_sense_values)
+plt.plot(t_values, i_sense_values, color='pink')
 plt.title('i_sense_values')
 
 plt.show()  
