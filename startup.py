@@ -26,11 +26,14 @@ v                    = lambda t: V_0 + DRIVE_VOLTAGE * np.cos ( ANGULAR_VELOCITY
 c_derivative         = lambda t: CAPICITOR_PLATE_THICKNESS/DISTANCE_BETWEEN_PLATES_DRIVE * PERMMITIVITY_OF_FREE_SPACE
 F_electric           = lambda t: 1/2 * (V_0 + DRIVE_VOLTAGE * np.cos ( ANGULAR_VELOCITY_DRIVE * t ))**2 * (CAPICITOR_PLATE_THICKNESS/DISTANCE_BETWEEN_PLATES_DRIVE * PERMMITIVITY_OF_FREE_SPACE) * CAPACITOR_PLATE_COUNT_DRIVE
 
-Nstap    = 100000+1
-teind    = 0.5 
-t_values = np.linspace(0, teind, Nstap)
+step_count    = 100000+1
+end_time    = 0.5 
+
+# maakt lijsten van spanning en F_electric
+t_values = np.linspace(0, end_time, step_count)
 F_electric_values = list(map(F_electric, t_values))
 v_values = list(map(v, t_values))
+
 plt.figure(1)
 plt.plot(t_values, F_electric_values, color='pink')
 plt.title('F_electric')
@@ -40,10 +43,10 @@ transfer_coefficient_step_1 = max(F_electric_values)/max(v_values)
 print(f'transfer coeficient of f_electric to velocity {transfer_coefficient_step_1}')
 
 def process_data_drive (DAMPING_COEFICIENT_DRIVE, SPRING_RATE_DRIVE, MASS_OF_DRIVE, F_electric_values):
-    Nstap    = 100000+1
+    step_count    = 100000+1
     teind    = 0.5 
-    dt       = teind/(Nstap -1)       
-    t_values = np.linspace(0, teind, Nstap)
+    dt       = teind/(step_count -1)       
+    t_values = np.linspace(0, teind, step_count)
 
     # x en v berekeningen voor de differentiaal vergelijking.
     x0                = 0      # begin positie
@@ -58,7 +61,7 @@ def process_data_drive (DAMPING_COEFICIENT_DRIVE, SPRING_RATE_DRIVE, MASS_OF_DRI
     component_c = 1 / (MASS_OF_DRIVE/ (dt**2) + DAMPING_COEFICIENT_DRIVE / (2*dt))
     
     # numerieke oplossing van de differentiaal vergelijking.
-    for time_index in range(1, Nstap - 1):
+    for time_index in range(1, step_count - 1):
          x_values_drive[time_index+1]  =  component_a * x_values_drive[time_index] +  component_b * x_values_drive[time_index-1] + component_c * F_electric_values[time_index] 
                         
     # amplitude berekenen
@@ -122,10 +125,10 @@ DAMPING_COEFICIENT_SENSE  = 1.237e-06 # kg/s
 
 
 def process_data_sense (DAMPING_COEFICIENT_SENSE, SPRING_RATE_SENSE, MASS_OF_SENSE, F_coriolis):
-    Nstap    = 100000+1
+    step_count    = 100000+1
     teind    = 0.5 
-    dt       = teind/(Nstap -1)       
-    t_values = np.linspace(0, teind, Nstap)
+    dt       = teind/(step_count -1)       
+    t_values = np.linspace(0, teind, step_count)
 
     # x en v berekeningen voor de differentiaal vergelijking.
     x0                = 0      # begin positie
@@ -140,7 +143,7 @@ def process_data_sense (DAMPING_COEFICIENT_SENSE, SPRING_RATE_SENSE, MASS_OF_SEN
     component_c = 1 / (MASS_OF_SENSE/ (dt**2) + DAMPING_COEFICIENT_SENSE / (2*dt))
     
     # numerieke oplossing van de differentiaal vergelijking.
-    for time_index in range(1, Nstap - 1):
+    for time_index in range(1, step_count - 1):
          x_values_sense[time_index+1]  =  component_a * x_values_sense[time_index] +  component_b * x_values_sense[time_index-1] + component_c * F_coriolis[time_index]
                         
     # amplitude berekenen
@@ -165,6 +168,9 @@ W_SENSE     = 3e-6 #meter
 SENSE_CAPACITOR_COUNT     = 40
 VDC         = 15 #V
 
+
+# vertaalt positie naar snelheid door te differentieren 
+# en maakt een lijst van berekende stroom sterktes: i_sense_values
 v_values_sense, t_values = DP.differentiatie(x_values_sense, t_values)
 I_extra_factor = SENSE_CAPACITOR_COUNT*PERMMITIVITY_OF_FREE_SPACE*W_SENSE/D_SENSE
 i_sense = lambda t_index: I_extra_factor * v_values_sense[int(t_index)]
