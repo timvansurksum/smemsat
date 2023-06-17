@@ -38,7 +38,7 @@ plt.figure(1)
 plt.plot(t_values, F_electric_values, color='pink')
 plt.title('F_electric over tijd')
 plt.xlabel('tijd [sec]')
-plt.ylabel('Elektrische kracht [Newton]')
+plt.ylabel('Elektrische kracht [N]')
 
 # berekenen van transmissiecoefficient n1.
 transfer_coefficient_step_1 = max(F_electric_values)/max(v_values)
@@ -81,8 +81,8 @@ print(f'transfer coeficient of v to drive amplitude {transfer_coefficient_step_2
 plt.figure(2)
 plt.plot(t_values, x_values_drive, color='pink')
 plt.title('x_values_drive over tijd')
-plt.xlabel('tijd [seconden]')
-plt.ylabel('Drive uitwijking [meter]')
+plt.xlabel('tijd [sec]')
+plt.ylabel('Drive uitwijking [m]')
 
 # berekenen van snelheid vanuit x waardes. 
 def compute_velocity (x_values_drive,t_values):
@@ -119,8 +119,8 @@ print(f'transfer coeficient of amplitude_x_drive to F_coriolis {transfer_coeffic
 plt.figure(3)
 plt.plot(t_values, F_coriolis, color='pink')
 plt.title('F_coriolis over tijd')
-plt.xlabel('tijd [seconden]')
-plt.ylabel('Coriolis kracht [Newton]')
+plt.xlabel('tijd [sec]')
+plt.ylabel('Coriolis kracht [N]')
 
 # gekregen parameters stap 4.
 MASS_OF_SENSE             = 4.92e-9 #kilogram
@@ -166,8 +166,8 @@ plt.figure(4)
 plt.plot(t_values, x_values_sense, color='pink')
 plt.title('x_values_sense')
 plt.title('x_values_sense over tijd')
-plt.xlabel('tijd [seconden]')
-plt.ylabel('Uitwijking Sense [meter]')
+plt.xlabel('tijd [sec]')
+plt.ylabel('Uitwijking Sense [m]')
 
 # Gekregen parameters stap 5.
 L_SENSE                  = 200e-6 #meter
@@ -192,7 +192,7 @@ print(f'transfer coeficient of f_electric to i_sense_values or the whole system 
 plt.figure(5)
 plt.plot(t_values, i_sense_values, color='pink')
 plt.title('i_sense_values over tijd')
-plt.xlabel('tijd [seconden]')
-plt.ylabel('Stroomsterkte [Ampere]')
+plt.xlabel('tijd [sec]')
+plt.ylabel('Stroomsterkte [A]')
 
 plt.show()  
