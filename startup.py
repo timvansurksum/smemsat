@@ -180,7 +180,7 @@ VDC                      = 15 #V
 # en maakt een lijst van berekende stroom sterktes: i_sense_values.
 v_values_sense, t_values = DP.differentiatie(x_values_sense, t_values)
 I_extra_factor           = SENSE_CAPACITOR_COUNT*PERMMITIVITY_OF_FREE_SPACE*W_SENSE/D_SENSE
-i_sense                  = lambda t_index: I_extra_factor * v_values_sense[int(t_index)]
+i_sense                  = lambda t_index: I_extra_factor * (v_values_sense[int(t_index)] + VDC)
 t_indexes                = range(0, len(t_values))
 i_sense_values           = list(map(i_sense, t_indexes))
 
